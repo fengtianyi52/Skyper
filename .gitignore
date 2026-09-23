@@ -46,6 +46,7 @@ __pycache__/
 
 # --- Node ---
 node_modules/
+**/.vite/
 
 # --- Test / temp ---
 *_test_*.mjs

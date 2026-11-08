@@ -40,6 +40,7 @@ Thumbs.db
 .env.*.local
 
 # --- Python ---
+.venv/
 __pycache__/
 *.py[cod]
 *.pyo
@@ -53,4 +54,5 @@ node_modules/
 *_test_*.py
 
 # --- Logs ---
+.runtime/
 *.log

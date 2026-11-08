@@ -1,10 +1,12 @@
 # Skyper
 
-Skyper 是一个面向个人和小团队的 Agent 工作台。它以 Argus RAG 项目为原型，保留文档知识库、混合检索、群组协作和 LangGraph Agent 能力，并补充可观察的工具调用、权限控制、高风险操作确认和离线回归评测。
+Skyper 是一个面向个人和小团队的 Agent 工作台。它集成文档知识库、混合检索、群组协作和 LangGraph Agent，支持可观察的工具调用、权限控制、高风险操作确认和离线回归评测。
 
 项目仓库：[Fty-RAG-Agent](https://github.com/fengtianyi52/Fty-RAG-Agent)
 
 ## 中文说明
+
+**已安装环境，或电脑重启后：** 双击项目根目录的 `start.bat`，等待就绪后访问 http://127.0.0.1:5173/。启动器会准备 Docker 数据服务并启动前后端；关闭启动窗口不影响后台运行。不用时运行 `stop.bat`，数据卷会保留。详细步骤与日志位置见 [启动和重启指南](STARTUP.md)。
 
 ### 项目定位
 
@@ -17,9 +19,10 @@ Skyper 的目标不只是生成回答，而是让 Agent 能在明确的权限边
 ### 主要功能
 
 - Agent 对话工作台、会话管理和上下文查看。
+- 批量文档上传：支持多选和拖拽，每个文件最多 30 MB（30 × 1024 × 1024 字节，含边界）；逐文件显示进度和失败原因，可单独或批量重试失败项。批次总大小可超过 30 MB。
 - 知识库问答，支持 Elasticsearch 全文检索、PostgreSQL/pgvector 向量检索及引用信息。
-- TXT、Markdown 文档可本地解析；PDF、Office 文档和图片由 MinerU 云端解析，并支持分块上传、续传、后台处理、状态查询和失败重试。
-- MinerU 适用于复杂版式、扫描件、表格和公式；处理这些文件类型时需要配置 MinerU Token。
+- TXT、Markdown、DOCX 和文字型 PDF 支持本地解析；DOCX 支持段落、表格和文本框文字。后台返回处理状态和具体失败原因。
+- 扫描 PDF、图片及其他 Office 格式仍需有效 MinerU Token。缺少 Embedding 密钥时，已解析文件保留预览与下载，并显示“已解析，待配置”；配置后可重新处理以建立检索索引。
 - 群组、成员邀请、加入申请和知识访问控制。
 - JWT 登录、bcrypt 密码哈希、普通用户/管理员角色和后端权限校验。
 - 管理员 Agent 高风险写操作确认；普通用户不能执行管理员写操作。
@@ -55,7 +58,7 @@ FastAPI backend (Python 3.11+)
 | Agent | LangChain、LangGraph、SSE、OpenAI-compatible Chat/Embedding API |
 | 检索 | PostgreSQL + pgvector、Elasticsearch 8、IK 中文分词 |
 | 文件存储 | MinIO（S3 兼容） |
-| 文档解析 | TXT/Markdown 本地解析；PDF、Office 和图片通过 MinerU 解析 |
+| 文档解析 | TXT/Markdown、python-docx、pdfplumber 本地解析；扫描件和其他 Office 格式通过 MinerU |
 | 测试 | pytest、pytest-asyncio、HTTPX、离线 Agent 评测 |
 | 本地基础设施 | Docker Compose |
 
@@ -63,13 +66,13 @@ FastAPI backend (Python 3.11+)
 
 ~~~text
 skyper/
-├─ Argus-frontend/             # Vue 前端
+├─ Skyper-frontend/             # Vue 前端
 │  └─ src/
 │     ├─ api/                  # API 客户端
 │     ├─ components/           # 登录、主题面板和共享组件
 │     ├─ stores/               # 认证、应用及主题状态
 │     └─ views/                # 总览、Agent、QA、文档和管理页面
-├─ Argus-python/               # FastAPI 后端
+├─ Skyper-python/               # FastAPI 后端
 │  ├─ app/
 │  │  ├─ assistant/            # LangGraph Agent、会话和工具
 │  │  ├─ auth/                 # 登录、JWT 和权限依赖
@@ -86,13 +89,13 @@ skyper/
 └─ STARTUP.md                  # 启动补充说明
 ~~~
 
-目录名 Argus-frontend 和 Argus-python 为兼容现有工程而保留。
+Skyper-frontend 为前端应用目录，Skyper-python 为 Python 后端目录。
 
 ### 环境要求
 
 - Docker Desktop
 - Python 3.11+
-- Node.js 20.19+ 或 22.12+（见 Argus-frontend/package.json）
+- Node.js 20.19+ 或 22.12+（见 Skyper-frontend/package.json）
 - npm、Git
 - 实际使用聊天和知识库问答时，需要有效的聊天模型及 Embedding API Key
 
@@ -105,10 +108,10 @@ skyper/
 ~~~powershell
 git clone https://github.com/fengtianyi52/Fty-RAG-Agent.git
 cd Fty-RAG-Agent
-Copy-Item Argus-python/.env.example Argus-python/.env
+Copy-Item Skyper-python/.env.example Skyper-python/.env
 ~~~
 
-编辑 Argus-python/.env，至少设置：
+编辑 Skyper-python/.env，至少设置：
 
 ~~~env
 CHAT_API_KEY=你的聊天模型API密钥
@@ -137,7 +140,7 @@ docker compose ps
 #### 3. 安装并启动 Python 后端
 
 ~~~powershell
-cd Argus-python
+cd Skyper-python
 python -m venv .venv
 .venv/Scripts/Activate.ps1
 python -m pip install --upgrade pip
@@ -152,7 +155,7 @@ uvicorn app.main:app --host 127.0.0.1 --port 10001 --reload
 从项目根目录另开一个 PowerShell：
 
 ~~~powershell
-cd Argus-frontend
+cd Skyper-frontend
 npm install
 npm run dev
 ~~~
@@ -175,7 +178,7 @@ npm run dev
 离线评测不调用外部 LLM：
 
 ~~~powershell
-cd Argus-python
+cd Skyper-python
 python -m app.evaluation.runner
 python -m app.evaluation.runner --json
 pytest -q tests/test_agent_regression.py
@@ -201,6 +204,8 @@ pytest -q
 
 ### 重要配置
 
+模型配置现支持官方厂商预设、自定义 OpenAI 兼容接口、在线模型列表、真实连接测试和自定义 Embedding 维度检测。详细操作与协议说明见 [模型配置指南](MODEL_SETUP.md)。
+
 | 配置 | 说明 |
 | --- | --- |
 | DATABASE_URL | PostgreSQL asyncpg 连接串 |
@@ -211,7 +216,7 @@ pytest -q
 | CORS_ORIGINS | 允许访问后端的来源 |
 | MINIO_* | MinIO 地址和凭据 |
 | ES_HOST、ES_PORT | Elasticsearch 地址 |
-| MINERU_TOKEN、MINERU_MODEL | PDF、Office 文档和图片解析所用的 MinerU 云服务 |
+| MINERU_TOKEN、MINERU_MODEL | 扫描件、图片和其他 Office 格式所需的 MinerU 云服务 |
 
 ### 安全说明及当前限制
 
@@ -221,16 +226,18 @@ pytest -q
 - 没有有效的模型 API Key 时，登录、页面浏览及离线评测可运行，但真实 Agent/问答无法调用模型。
 - 当前 Docker Compose 面向本地开发，不包含生产级 TLS、反向代理、密钥管理或高可用配置。
 - Elasticsearch 默认是单节点开发设置；生产部署需要单独配置认证、容量和备份。
-- MinerU 是 PDF、Office 文档和图片解析所需的外部服务，使用这些格式时需单独申请 Token。
+- 本地解析提取文字，不对嵌入图片执行 OCR；扫描件、图片及其他 Office 格式需有效 MinerU Token。
 - 仓库目前没有单独的 LICENSE 文件；公开分发前请补充合适的许可证。
 
 ---
 
 ## English Documentation
 
+**Already installed, or returning after a reboot?** Run `start.bat` from the repository root and wait until Skyper is ready at http://127.0.0.1:5173/. It prepares Docker services and starts the backend and frontend in the background. Use `stop.bat` to stop them while retaining data volumes. See [the startup guide](STARTUP.md) for logs and troubleshooting.
+
 ### Overview
 
-Skyper is an Agent workspace for individuals and small teams, based on the Argus RAG project. It combines private document knowledge, hybrid retrieval, group collaboration and LangGraph agents with observable tool execution, authorization boundaries, confirmation for high-risk actions and offline regression evaluation.
+Skyper is an Agent workspace for individuals and small teams. It combines private document knowledge, hybrid retrieval, group collaboration and LangGraph agents with observable tool execution, authorization boundaries, confirmation for high-risk actions and offline regression evaluation.
 
 The project is organized into three layers:
 
@@ -243,9 +250,10 @@ Repository: [Fty-RAG-Agent](https://github.com/fengtianyi52/Fty-RAG-Agent)
 ### Features
 
 - Agent chat workspace with session management and context inspection.
+- Batch document uploads via multi-select or drag and drop. Each file may be up to 30 MiB (31,457,280 bytes, inclusive); the batch total may exceed this limit. Per-file progress, failure reasons and retries are available.
 - Knowledge-base Q&A with Elasticsearch full-text search, PostgreSQL/pgvector retrieval and citations.
-- Local parsing for TXT and Markdown; PDF, Office documents and images are parsed by MinerU, with chunked/resumable uploads, background processing, status tracking and retries.
-- MinerU handles complex layouts, scans, tables and formulas; a token is required for those file types.
+- Local parsing for TXT, Markdown, DOCX and text-based PDF, including DOCX tables and text boxes. Processing errors include actionable reasons.
+- Scans, images and other Office formats require a valid MinerU token. Missing embedding credentials leave documents in PARSED status with previews and downloads available; reprocess after configuration to build retrieval indexes.
 - Groups, invitations, join requests and backend-enforced knowledge access.
 - JWT authentication, bcrypt password hashing and user/admin roles.
 - Confirmation before high-risk admin Agent writes; normal users cannot execute admin writes.
@@ -273,27 +281,27 @@ Backend: Python 3.11+ + FastAPI + SQLAlchemy Async
 | Agent | LangChain, LangGraph, SSE, OpenAI-compatible chat and embedding APIs |
 | Retrieval | PostgreSQL + pgvector, Elasticsearch 8, IK Chinese analyzer |
 | Storage | MinIO, an S3-compatible object store |
-| Documents | Local TXT/Markdown parsers; MinerU for PDF, Office documents and images |
+| Documents | Local TXT/Markdown, python-docx and pdfplumber; MinerU for scans, images and other Office formats |
 | Tests | pytest, pytest-asyncio, HTTPX and offline Agent evaluation |
 | Infrastructure | Docker Compose |
 
 ### Repository Layout
 
 ~~~text
-Argus-frontend/    Vue application: API clients, stores, components and views
-Argus-python/      FastAPI application: assistant, auth, documents, groups, QA and tests
+Skyper-frontend/    Vue application: API clients, stores, components and views
+Skyper-python/      FastAPI application: assistant, auth, documents, groups, QA and tests
 elasticsearch-ik/  Elasticsearch image with IK analyzer
 docker-compose.yml Local PostgreSQL, MinIO and Elasticsearch services
 STARTUP.md         Additional startup and troubleshooting guide
 ~~~
 
-The Argus-frontend and Argus-python directory names are retained for compatibility with the existing project structure.
+Skyper-frontend contains the web application; Skyper-python contains the Python backend.
 
 ### Requirements
 
 - Docker Desktop
 - Python 3.11+
-- Node.js 20.19+ or 22.12+ (see Argus-frontend/package.json)
+- Node.js 20.19+ or 22.12+ (see Skyper-frontend/package.json)
 - npm and Git
 - Valid chat and embedding API keys for live Agent and retrieval requests
 
@@ -304,10 +312,10 @@ Clone the repository and create the local environment file:
 ~~~powershell
 git clone https://github.com/fengtianyi52/Fty-RAG-Agent.git
 cd Fty-RAG-Agent
-Copy-Item Argus-python/.env.example Argus-python/.env
+Copy-Item Skyper-python/.env.example Skyper-python/.env
 ~~~
 
-Set at least the following values in Argus-python/.env:
+Set at least the following values in Skyper-python/.env:
 
 ~~~env
 CHAT_API_KEY=your-chat-model-key
@@ -325,7 +333,7 @@ docker compose ps
 Wait for PostgreSQL, MinIO and Elasticsearch to become healthy. Then install and run the backend:
 
 ~~~powershell
-cd Argus-python
+cd Skyper-python
 python -m venv .venv
 .venv/Scripts/Activate.ps1
 python -m pip install --upgrade pip
@@ -336,7 +344,7 @@ uvicorn app.main:app --host 127.0.0.1 --port 10001 --reload
 In another terminal, from the repository root, install and run the frontend:
 
 ~~~powershell
-cd Argus-frontend
+cd Skyper-frontend
 npm install
 npm run dev
 ~~~
@@ -359,7 +367,7 @@ The development account is controlled by DEV_ADMIN_ENABLED, DEV_ADMIN_USERNAME a
 Run the offline evaluator and focused tests:
 
 ~~~powershell
-cd Argus-python
+cd Skyper-python
 python -m app.evaluation.runner
 python -m app.evaluation.runner --json
 pytest -q tests/test_agent_regression.py
@@ -385,6 +393,8 @@ See the Swagger page for exact request and response schemas.
 
 ### Configuration
 
+The model setup screen supports official provider presets, custom OpenAI-compatible APIs, live model discovery, real connection checks, and automatic embedding dimension detection. See [Model setup](MODEL_SETUP.md).
+
 | Variable | Purpose |
 | --- | --- |
 | DATABASE_URL | PostgreSQL asyncpg connection string |
@@ -395,7 +405,7 @@ See the Swagger page for exact request and response schemas.
 | CORS_ORIGINS | Allowed frontend origins |
 | MINIO_* | MinIO endpoint and credentials |
 | ES_HOST, ES_PORT | Elasticsearch endpoint |
-| MINERU_TOKEN, MINERU_MODEL | MinerU cloud parser for PDF, Office documents and images |
+| MINERU_TOKEN, MINERU_MODEL | MinerU cloud parser for scans, images and other Office formats |
 
 ### Security and Limitations
 
@@ -405,5 +415,5 @@ See the Swagger page for exact request and response schemas.
 - Without valid model keys, login, navigation and offline evaluation can work, but live Agent and Q&A requests cannot call models.
 - Compose is a local-development setup and does not provide production TLS, reverse proxy, secret management or high availability.
 - Elasticsearch runs as a single development node by default; production requires its own authentication, capacity and backup plan.
-- MinerU requires a separate token for PDF, Office document and image parsing.
+- Local parsing extracts text without OCR of embedded images. Scans, images and other Office formats require a separate MinerU token.
 - The repository currently has no separate LICENSE file. Add an appropriate license before external distribution.

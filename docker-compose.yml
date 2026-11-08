@@ -39,7 +39,7 @@ services:
   # ── Elasticsearch + IK 中文分词（官方镜像构建时装 analysis-ik 插件） ──
   elasticsearch:
     build: ./elasticsearch-ik
-    image: argus-es-ik:8.15.0
+    image: skyper-es-ik:8.15.0
     container_name: skyper-es
     environment:
       discovery.type: single-node

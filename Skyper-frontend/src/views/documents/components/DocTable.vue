@@ -60,7 +60,7 @@ function uploaderName(doc: DocumentItem): string {
     <!-- Top header with count chip -->
     <header class="doc-table-card__head">
       <div class="doc-table-card__title-row">
-        <span class="doc-table-card__eyebrow">Inventory</span>
+        <span class="doc-table-card__eyebrow">文档清单</span>
         <h3 class="doc-table-card__title">
           当前筛选命中
           <span class="doc-table-card__count">共 {{ documents.length }} 个文件</span>
@@ -180,7 +180,7 @@ function uploaderName(doc: DocumentItem): string {
 <style scoped>
 .doc-table-card {
   background: var(--surface-white);
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: var(--radius-lg);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
   overflow: hidden;
@@ -293,7 +293,7 @@ function uploaderName(doc: DocumentItem): string {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   background: var(--surface-subtle);
-  border-bottom: 1px solid var(--border-default);
+  border-bottom: 2px solid var(--border-default);
   white-space: nowrap;
 }
 

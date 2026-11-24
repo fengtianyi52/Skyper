@@ -173,7 +173,7 @@ function formatSize(bytes: number): string {
     "
   >
     <template #header>
-      <span class="upload-dialog__eyebrow">DOCUMENT UPLOAD</span>
+      <span class="upload-dialog__eyebrow">上传文档</span>
       <h2 class="upload-dialog__title">批量上传文档</h2>
     </template>
     <div class="upload-dialog">
@@ -416,7 +416,7 @@ function formatSize(bytes: number): string {
 }
 .upload-dialog__file {
   padding: 12px;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 9px;
 }
 .upload-dialog__file-name {
@@ -494,7 +494,7 @@ function formatSize(bytes: number): string {
   padding-top: 5px;
 }
 .upload-dialog__btn {
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 8px;
   padding: 10px 16px;
   background: var(--surface-white);

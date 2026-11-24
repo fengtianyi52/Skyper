@@ -321,7 +321,7 @@ onMounted(() => {
     >
       <div v-if="created" class="token-once">
         <el-alert type="warning" :closable="false" show-icon>
-          <template #title>完整 token 仅显示这一次，关闭后无法再次查看，请立即复制保存</template>
+          <template #title>完整令牌仅显示这一次，关闭后无法再次查看，请立即复制保存</template>
         </el-alert>
         <div class="token-once__box">
           <code class="token-once__code">{{ created.token }}</code>
@@ -376,7 +376,7 @@ onMounted(() => {
 
 .table-card {
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: var(--radius-lg);
   padding: 12px;
 }

@@ -124,7 +124,7 @@ async function handleRegister() {
     <template #header>
       <div class="modal-header">
         <h2>{{ mode === 'login' ? '欢迎回来' : '创建账号' }}</h2>
-        <p>{{ mode === 'login' ? '登录数据洞察中心' : '立即注册，开启智能知识服务' }}</p>
+        <p>{{ mode === 'login' ? '登录 Skyper 智能知识工作台' : '立即注册，开启智能知识服务' }}</p>
       </div>
     </template>
 
@@ -185,7 +185,7 @@ async function handleRegister() {
         <input
           v-model="registerForm.email"
           type="email"
-          placeholder="your@email.com"
+          placeholder="请输入邮箱地址"
           autocomplete="email"
         />
       </div>
@@ -293,7 +293,7 @@ async function handleRegister() {
   outline: none;
 }
 .input-group input::placeholder {
-  color: #94a3b8;
+  color: #62738a;
 }
 .input-group input:focus {
   border-color: var(--brand-primary);

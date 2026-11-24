@@ -16,7 +16,7 @@ import PageHeaderHero from '@/components/layout/PageHeaderHero.vue'
 
 const authStore = useAuthStore()
 
-/** 当前登录用户 ID，用于防止误禁用自身 */
+/** 当前登录用户编号，用于防止误禁用自身 */
 const currentUserId = computed(() => authStore.currentUser?.userId ?? null)
 
 // ── 数据状态 ──
@@ -545,7 +545,7 @@ onUnmounted(() => {
           <el-input v-model="createForm.username" placeholder="登录用户名" maxlength="64" />
         </el-form-item>
         <el-form-item label="邮箱">
-          <el-input v-model="createForm.email" placeholder="user@example.com" maxlength="128" />
+          <el-input v-model="createForm.email" placeholder="请输入邮箱地址" maxlength="128" />
         </el-form-item>
         <el-form-item label="显示名称">
           <el-input v-model="createForm.displayName" placeholder="用户显示名称" maxlength="128" />
@@ -671,7 +671,7 @@ onUnmounted(() => {
   border-radius: var(--radius-sm);
   font-size: 0.86rem;
   font-weight: 600;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   background: var(--surface-white);
   color: var(--text-secondary);
   cursor: pointer;
@@ -839,7 +839,7 @@ onUnmounted(() => {
   align-items: center;
   padding: 14px 20px;
   background: var(--surface-subtle);
-  border-bottom: 1px solid var(--border-default);
+  border-bottom: 2px solid var(--border-default);
 }
 
 .th {
@@ -941,7 +941,7 @@ onUnmounted(() => {
   font-weight: 600;
   background: var(--surface-subtle);
   color: var(--text-secondary);
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
 }
 
 .role-badge--admin {
@@ -994,7 +994,7 @@ onUnmounted(() => {
   gap: 4px;
   padding: 6px 12px;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   background: var(--surface-white);
   font-size: 0.78rem;
   font-weight: 600;
@@ -1061,7 +1061,7 @@ onUnmounted(() => {
   max-width: 100vw;
   height: 100vh;
   background: var(--surface-white);
-  border-left: 1px solid var(--border-default);
+  border-left: 2px solid var(--border-default);
   box-shadow: -4px 0 24px rgba(15, 23, 42, 0.08);
   display: flex;
   flex-direction: column;
@@ -1073,7 +1073,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: space-between;
   padding: 20px 24px;
-  border-bottom: 1px solid var(--border-default);
+  border-bottom: 2px solid var(--border-default);
   flex-shrink: 0;
 }
 

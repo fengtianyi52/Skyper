@@ -74,7 +74,7 @@ function onPopLeave() {
   position: fixed;
   z-index: 9999;
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.14);
   padding: 10px 14px;

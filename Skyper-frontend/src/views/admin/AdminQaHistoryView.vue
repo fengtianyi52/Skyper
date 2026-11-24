@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { answerReasonLabel } from '@/utils/display'
 import { ref, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import {
@@ -204,7 +205,7 @@ onMounted(async () => {
             <div class="qa-msg__content">
               <p v-if="m.content" class="qa-msg__text">{{ m.content }}</p>
               <div v-if="m.role === 'ASSISTANT' && !m.content" class="qa-msg__refused">
-                <span class="qa-msg__refused-code">{{ m.reasonCode }}</span>
+                <span v-if="m.reasonCode" class="qa-msg__refused-code" :title="m.reasonCode">{{ answerReasonLabel(m.reasonCode) }}</span>
                 {{ m.reasonMessage }}
               </div>
               <details v-if="m.thinking" class="qa-msg__thinking">
@@ -261,7 +262,7 @@ onMounted(async () => {
 
 .stat-card {
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 12px;
   padding: 16px 18px;
 }
@@ -291,7 +292,7 @@ onMounted(async () => {
 
 .table-card {
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 12px;
   padding: 14px;
 }
@@ -324,7 +325,7 @@ onMounted(async () => {
 }
 
 .qa-msg {
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 10px;
   padding: 12px 14px;
   margin-bottom: 10px;
@@ -378,8 +379,8 @@ onMounted(async () => {
 .qa-msg__thinking pre {
   margin: 6px 0 0;
   padding: 10px;
-  background: #0f172a;
-  color: #e2e8f0;
+  background: #edf2fa;
+  color: #243b5a;
   border-radius: 8px;
   font-size: 0.75rem;
   white-space: pre-wrap;

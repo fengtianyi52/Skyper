@@ -96,7 +96,7 @@ defineProps<{
   display: flex;
   flex-direction: column;
   padding: 20px 22px 18px;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: var(--radius-lg);
   background: var(--surface-white);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);

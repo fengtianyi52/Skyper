@@ -52,7 +52,7 @@ const starters = [
         </svg>
       </div>
 
-      <p class="qa-hero__eyebrow">Knowledge Q&amp;A · Skyper</p>
+      <p class="qa-hero__eyebrow">知识库问答 · Skyper</p>
 
       <h1 class="qa-hero__title">
         向<span class="qa-hero__title-accent">你的知识库</span>提问
@@ -310,7 +310,7 @@ const starters = [
   gap: 12px;
   padding: 14px 16px;
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 14px;
   text-align: left;
   font-family: inherit;

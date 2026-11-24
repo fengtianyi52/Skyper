@@ -201,7 +201,7 @@ function renderChunk(text: string): string {
 }
 
 .cp-block {
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 10px;
   background: #fff;
   padding: 12px 14px;
@@ -280,13 +280,13 @@ function renderChunk(text: string): string {
 .cp-block__text pre {
   margin: 8px 0;
   padding: 12px 14px;
-  background: #0f172a;
+  background: #edf2fa;
   border-radius: 8px;
   overflow-x: auto;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.8rem;
   line-height: 1.6;
-  color: #e2e8f0;
+  color: #243b5a;
 }
 
 .cp-block__text pre code {
@@ -315,7 +315,7 @@ function renderChunk(text: string): string {
 .cp-block__text th,
 .cp-block__text td {
   padding: 6px 10px;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   text-align: left;
 }
 

@@ -391,10 +391,10 @@ onMounted(() => {
 <style scoped>
 .qa-page {
   display: flex;
-  height: calc(100vh - 80px);
+  height: calc(100dvh - 250px);
   min-height: 560px;
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { markdownToHtml } from '@/utils/markdown'
+import { answerReasonLabel } from '@/utils/display'
 import type { QaMessage } from '../composables/useQaSessions'
 import type { CitationItem } from '@/api/qa'
 import CitationRail from './CitationRail.vue'
@@ -46,7 +47,7 @@ function formatTime(ts: number): string {
 
     <div class="qa-msg__body">
       <header class="qa-msg__head">
-        <span class="qa-msg__role">{{ message.role === 'user' ? 'You' : 'Skyper' }}</span>
+        <span class="qa-msg__role">{{ message.role === 'user' ? '你' : 'Skyper' }}</span>
         <span class="qa-msg__time">{{ formatTime(message.createdAt) }}</span>
       </header>
 
@@ -80,7 +81,7 @@ function formatTime(ts: number): string {
             </svg>
           </div>
           <span class="qa-msg__refused-title">未能回答</span>
-          <code v-if="message.reasonCode" class="qa-msg__refused-code">{{ message.reasonCode }}</code>
+          <span v-if="message.reasonCode" class="qa-msg__refused-code" :title="message.reasonCode">{{ answerReasonLabel(message.reasonCode) }}</span>
         </div>
         <p class="qa-msg__refused-text">
           {{ message.reasonMessage || '检索结果的置信度不足以给出可靠回答。请尝试补充更多上下文，或先在文档中心确认相关资料已上传并完成处理。' }}
@@ -206,7 +207,7 @@ function formatTime(ts: number): string {
   gap: 6px;
   padding: 8px 14px;
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 100px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 }
@@ -369,13 +370,13 @@ function formatTime(ts: number): string {
 .qa-msg__markdown :deep(pre) {
   margin: 12px 0;
   padding: 14px 16px;
-  background: #0f172a;
+  background: #edf2fa;
   border-radius: 10px;
   overflow-x: auto;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.82rem;
   line-height: 1.6;
-  color: #e2e8f0;
+  color: #243b5a;
   border: 1px solid #1e293b;
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
 }
@@ -430,7 +431,7 @@ function formatTime(ts: number): string {
 .qa-msg__markdown :deep(th),
 .qa-msg__markdown :deep(td) {
   padding: 8px 12px;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   text-align: left;
 }
 

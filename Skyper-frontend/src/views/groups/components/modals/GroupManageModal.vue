@@ -32,7 +32,7 @@ const inviteError = ref('')
 function handleInvite() {
   const parsed = Number(inviteUserId.value)
   if (!Number.isInteger(parsed) || parsed <= 0) {
-    inviteError.value = '请输入合法的用户 ID'
+    inviteError.value = '请输入合法的用户编号'
     return
   }
   inviteError.value = ''
@@ -48,7 +48,7 @@ function ownerName(userId: number, members: GroupMemberItem[]): string {
 async function copyGroupCode(code: string) {
   try {
     await navigator.clipboard.writeText(code)
-    ElMessage.success('组织 ID 已复制到剪贴板')
+    ElMessage.success('组织编号 已复制到剪贴板')
   } catch (err) {
     ElMessage.error('复制失败，请手动复制')
   }
@@ -79,7 +79,7 @@ async function copyGroupCode(code: string) {
       <!-- Group info -->
       <div v-if="group" class="info-bar">
         <div class="info-bar__item">
-          <span class="info-bar__label">组织 ID</span>
+          <span class="info-bar__label">组织编号</span>
           <div class="info-bar__value-wrap">
             <code class="info-bar__value">{{ group.groupCode }}</code>
             <el-button type="primary" link size="small" @click="copyGroupCode(group.groupCode)" title="复制">
@@ -91,7 +91,7 @@ async function copyGroupCode(code: string) {
           </div>
         </div>
         <div class="info-bar__item">
-          <span class="info-bar__label">内部 ID</span>
+          <span class="info-bar__label">内部编号</span>
           <span class="info-bar__value">#{{ group.groupId }}</span>
         </div>
         <div class="info-bar__item">
@@ -110,7 +110,7 @@ async function copyGroupCode(code: string) {
               v-model="inviteUserId"
               type="number"
               min="1"
-              placeholder="输入用户 ID，例如：1003"
+              placeholder="输入用户编号，例如：1003"
               class="form-input"
               @keyup.enter="handleInvite"
             />
@@ -119,7 +119,7 @@ async function copyGroupCode(code: string) {
             </el-button>
           </div>
           <p v-if="inviteError" class="field-error">{{ inviteError }}</p>
-          <p class="field-hint">被邀请用户可在右上角头像菜单查看自己的用户 ID，将编号发给你即可。</p>
+          <p class="field-hint">被邀请用户可在右上角账号设置中查看自己的用户编号，将编号发给你即可。</p>
         </section>
 
         <!-- Section tabs -->
@@ -159,7 +159,7 @@ async function copyGroupCode(code: string) {
                 <span class="member-item__avatar">{{ m.displayName.charAt(0) }}</span>
                 <div>
                   <strong>{{ m.displayName }}</strong>
-                  <span>ID: {{ m.userId }} · {{ m.userCode }}</span>
+                  <span>编号： {{ m.userId }} · {{ m.userCode }}</span>
                 </div>
               </div>
               <div class="member-item__meta">
@@ -332,7 +332,7 @@ async function copyGroupCode(code: string) {
 .form-input {
   flex: 1;
   padding: 8px 12px;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: var(--radius-sm);
   font-size: 0.88rem;
   font-family: inherit;
@@ -433,7 +433,7 @@ async function copyGroupCode(code: string) {
   align-items: center;
   gap: 10px;
   padding: 10px 12px;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: var(--radius-sm);
   background: var(--surface-white);
 }
@@ -492,7 +492,7 @@ async function copyGroupCode(code: string) {
 
 .btn-remove {
   padding: 4px 10px;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: var(--radius-xs);
   background: var(--surface-white);
   color: var(--el-color-danger);
@@ -536,7 +536,7 @@ async function copyGroupCode(code: string) {
 
 .btn-reject-sm {
   padding: 4px 10px;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: var(--radius-xs);
   background: var(--surface-white);
   color: var(--text-secondary);

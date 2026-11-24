@@ -227,7 +227,7 @@ function formatDate(dateStr?: string) {
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);

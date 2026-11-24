@@ -60,7 +60,7 @@ function set(m: AssistantToolMode) {
   align-items: center;
   padding: 3px;
   background: var(--surface-subtle);
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 100px;
   user-select: none;
 }

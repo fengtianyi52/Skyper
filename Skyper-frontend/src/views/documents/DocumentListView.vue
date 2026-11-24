@@ -296,7 +296,7 @@ onUnmounted(() => {
 
     <!-- Hero header -->
     <PageHeaderHero
-      eyebrow="Document Center"
+      eyebrow="文档中心"
       title="文档中心"
       description="集中管理知识库文档：上传、解析、预览与检索，所有内容驱动 RAG 问答与协作。"
     />
@@ -483,7 +483,7 @@ onUnmounted(() => {
 /* Decorative atmosphere */
 .doc-center__backdrop {
   position: absolute;
-  inset: -40px -20px auto;
+  inset: -24px 0 auto;
   height: 320px;
   pointer-events: none;
   overflow: hidden;
@@ -523,7 +523,7 @@ onUnmounted(() => {
   text-align: center;
   padding: 64px 24px;
   background: var(--surface-white);
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: var(--radius-lg);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 }
@@ -638,7 +638,7 @@ onUnmounted(() => {
   align-items: baseline;
   gap: 12px;
   padding: 20px 24px;
-  border-bottom: 1px solid var(--border-default);
+  border-bottom: 2px solid var(--border-default);
   flex-shrink: 0;
 }
 .chunks-modal__head h3 {

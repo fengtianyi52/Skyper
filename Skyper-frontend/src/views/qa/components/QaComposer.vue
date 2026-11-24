@@ -243,7 +243,7 @@ defineExpose({ focus, setText })
   font-weight: 600;
   color: var(--text-secondary);
   background: var(--surface-subtle);
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 4px;
   box-shadow: 0 1px 0 var(--border-default);
 }

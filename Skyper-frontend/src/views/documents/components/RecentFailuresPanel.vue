@@ -24,7 +24,7 @@ function formatTime(iso: string): string {
   <section class="failures-panel">
     <header class="failures-panel__head">
       <div class="failures-panel__title-row">
-        <span class="failures-panel__eyebrow">Recent Failures</span>
+        <span class="failures-panel__eyebrow">近期处理失败</span>
         <h3 class="failures-panel__title">处理提示与失败原因</h3>
       </div>
       <div v-if="failures.length > 0" class="failures-panel__badge">
@@ -91,7 +91,7 @@ function formatTime(iso: string): string {
   margin-bottom: 22px;
   padding: 20px 24px;
   background: var(--surface-white);
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: var(--radius-lg);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 }

@@ -121,7 +121,7 @@ const statusValue = computed({
   padding: 16px 18px;
   margin-bottom: 18px;
   background: var(--surface-white);
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: var(--radius-lg);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
   flex-wrap: wrap;
@@ -221,7 +221,7 @@ const statusValue = computed({
 }
 
 .filters-bar__input::placeholder {
-  color: #94a3b8;
+  color: #62738a;
 }
 
 /* Upload button */

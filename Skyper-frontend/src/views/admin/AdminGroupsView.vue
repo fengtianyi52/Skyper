@@ -162,7 +162,7 @@ onMounted(loadGroups)
           </template>
         </el-table-column>
         <el-table-column prop="memberCount" label="成员数" width="90" />
-        <el-table-column prop="ownerUserId" label="所有者 ID" width="100" />
+        <el-table-column prop="ownerUserId" label="所有者编号" width="100" />
         <el-table-column prop="description" label="描述" min-width="180" show-overflow-tooltip />
         <el-table-column label="创建时间" width="150">
           <template #default="{ row }">{{ formatTime(row.createdAt) }}</template>
@@ -271,7 +271,7 @@ onMounted(loadGroups)
 
 .table-card {
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 12px;
   padding: 14px;
 }

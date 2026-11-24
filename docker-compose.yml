@@ -18,9 +18,10 @@ services:
 
   # ── MinIO 对象存储 ──
   minio:
-    # MinIO moved its maintained public image to Quay; the Docker Hub alias
-    # currently returns an access-denied error.
-    image: quay.io/minio/minio:latest
+    # The upstream release now recommends building from source; public images
+    # return access-denied. Build the pinned official release instead.
+    build: ./minio
+    image: skyper-minio:RELEASE.2025-10-15T17-29-55Z
     container_name: skyper-minio
     command: server /data --console-address ":9001"
     environment:

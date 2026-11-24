@@ -78,8 +78,8 @@ function formatRelative(iso: string | null): string {
         </svg>
       </div>
       <div class="asst-sidebar__brand-text">
-        <span class="asst-sidebar__brand-eyebrow">Skyper Research</span>
-        <span class="asst-sidebar__brand-title">Agent Console</span>
+        <span class="asst-sidebar__brand-eyebrow">Skyper 知识空间</span>
+        <span class="asst-sidebar__brand-title">智能助手</span>
       </div>
       <button
         class="asst-sidebar__refresh"
@@ -282,7 +282,7 @@ function formatRelative(iso: string | null): string {
   display: flex;
   flex-direction: column;
   background: #fbfaf6;
-  border-right: 1px solid var(--border-default);
+  border-right: 2px solid var(--border-default);
   padding: 22px 18px 16px;
   height: 100%;
   position: relative;
@@ -358,7 +358,7 @@ function formatRelative(iso: string | null): string {
   width: 26px;
   height: 26px;
   background: transparent;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 7px;
   color: var(--text-muted);
   cursor: pointer;
@@ -420,7 +420,7 @@ function formatRelative(iso: string | null): string {
   color: var(--text-secondary);
   line-height: 1.55;
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 10px;
 }
 
@@ -437,7 +437,7 @@ function formatRelative(iso: string | null): string {
   font-size: 0.88rem;
   font-weight: 600;
   color: #fff;
-  background: linear-gradient(135deg, #1e293b, #0f172a);
+  background: var(--brand-primary);
   border: none;
   border-radius: 10px;
   cursor: pointer;

@@ -128,7 +128,7 @@ function formatDate(dateStr?: string) {
 
 .action-btn--danger {
   background: transparent;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   color: var(--text-secondary);
 }
 

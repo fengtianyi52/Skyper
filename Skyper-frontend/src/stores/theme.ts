@@ -40,7 +40,7 @@ export const useThemeStore = defineStore('theme', {
     },
     apply() {
       const root = document.documentElement
-      root.style.setProperty('--skyper-accent', this.accent === 'violet' ? '#a78bfa' : this.accent === 'lime' ? '#b7f36b' : '#67e8f9')
+      root.style.setProperty('--skyper-accent', this.accent === 'violet' ? '#7040b5' : this.accent === 'lime' ? '#34733d' : '#2458c6')
       root.style.setProperty('--skyper-bg-image', this.backgroundImage ? `url(${this.backgroundImage})` : 'none')
       root.style.setProperty('--skyper-bg-dim', String(this.dim))
     },

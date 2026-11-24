@@ -53,8 +53,8 @@ function formatRelative(ts: number): string {
         </svg>
       </div>
       <div class="qa-sidebar__brand-text">
-        <span class="qa-sidebar__brand-eyebrow">Skyper Research</span>
-        <span class="qa-sidebar__brand-title">Q&A Console</span>
+        <span class="qa-sidebar__brand-eyebrow">Skyper 知识空间</span>
+        <span class="qa-sidebar__brand-title">知识库问答</span>
       </div>
     </div>
 
@@ -209,7 +209,7 @@ function formatRelative(ts: number): string {
   display: flex;
   flex-direction: column;
   background: #fbfaf6;
-  border-right: 1px solid var(--border-default);
+  border-right: 2px solid var(--border-default);
   padding: 22px 18px 16px;
   height: 100%;
   position: relative;
@@ -325,7 +325,7 @@ function formatRelative(ts: number): string {
   font-size: 0.85rem;
   color: var(--text-primary);
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 10px;
   outline: none;
   appearance: none;
@@ -363,7 +363,7 @@ function formatRelative(ts: number): string {
   font-size: 0.88rem;
   font-weight: 600;
   color: #fff;
-  background: linear-gradient(135deg, #1e293b, #0f172a);
+  background: var(--brand-primary);
   border: none;
   border-radius: 10px;
   cursor: pointer;

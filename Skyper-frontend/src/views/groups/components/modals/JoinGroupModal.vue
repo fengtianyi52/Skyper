@@ -29,7 +29,7 @@ function handleSubmit() {
   error.value = ''
   const trimmed = code.value.trim()
   if (trimmed.length === 0) {
-    error.value = '请输入组织 ID'
+    error.value = '请输入组织编号'
     return
   }
   emit('submit', trimmed)
@@ -56,17 +56,17 @@ function handleSubmit() {
       <p v-if="error" class="modal-error">{{ error }}</p>
 
       <label class="form-field">
-        <span class="form-field__label">组织 ID（groupCode）</span>
+        <span class="form-field__label">组织编号</span>
         <input
           v-model="code"
           type="text"
           maxlength="80"
-          placeholder="例如：engineering-team"
+          placeholder="请输入小组提供的组织编号"
           class="form-field__input"
           @keyup.enter="handleSubmit"
         />
       </label>
-      <p class="form-hint">输入目标小组的组织 ID，向其所有者提交加入申请。对方审批通过后，该组会出现在「我加入的组」中。</p>
+      <p class="form-hint">输入目标小组的组织编号，向其所有者提交加入申请。对方审批通过后，该组会出现在「我加入的组」中。</p>
     </div>
 
     <template #footer>
@@ -132,7 +132,7 @@ function handleSubmit() {
 .form-field__input {
   width: 100%;
   padding: 9px 12px;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: var(--radius-sm);
   font-size: 0.9rem;
   font-family: inherit;

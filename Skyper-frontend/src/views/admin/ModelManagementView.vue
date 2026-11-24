@@ -111,13 +111,13 @@ watch(() => JSON.stringify(payload()), () => { testResult.value = null; formErro
 watch(() => [form.baseUrl, form.apiKey, form.apiFormat], () => { discovered.value = []; discoveryMessage.value = '' })
 function valid() {
   if (!form.baseUrl.trim() || !form.apiKey.trim() || !form.modelName.trim()) {
-    formError.value = '请填写 API 地址、API Key 和精确模型 ID。'
+    formError.value = '请填写 API 地址、API 密钥 和精确模型 ID。'
     return false
   }
   return true
 }
 async function discover() {
-  if (!form.baseUrl || !form.apiKey) { formError.value = '请先填写 API 地址与 Key'; return }
+  if (!form.baseUrl || !form.apiKey) { formError.value = '请先填写 API 地址与密钥'; return }
   discovering.value = true
   discoveryMessage.value = ''
   try {
@@ -206,7 +206,7 @@ onMounted(loadAll)
           <dt>模型 ID</dt><dd>{{ selected.modelName }}</dd>
           <dt>协议</dt><dd>{{ protocolLabels[selected.apiFormat] ?? selected.apiFormat }}</dd>
           <dt>API 地址</dt><dd>{{ selected.baseUrl }}</dd>
-          <dt>API Key</dt><dd>已保存 · ••••••••</dd>
+          <dt>API 密钥</dt><dd>已保存 · ••••••••</dd>
           <dt>参数</dt><dd>{{ JSON.stringify(selected.parameters ?? {}) }}</dd>
           <template v-if="selected.modelType === 'chat'"><dt>备用模型</dt><dd>{{ configs.find(c => c.id === selected?.fallbackConfigId)?.displayName ?? '未设置' }} <el-button link type="primary" @click="fallbackId = selected.fallbackConfigId; fallbackDialog = true">设置</el-button></dd></template>
         </dl>
@@ -222,21 +222,21 @@ onMounted(loadAll)
         <template v-if="form.modelType !== 'mineru'">
           <el-form-item label="1. 服务商 / 接入方式"><el-select v-model="form.provider" style="width:100%" :disabled="testing || saving" @change="chooseProvider"><el-option v-for="p in providerOptions" :key="p.id" :label="p.label" :value="p.id" /></el-select></el-form-item>
           <p class="setup-help">{{ provider?.hint }}</p>
-          <el-form-item label="2. API Key"><el-input v-model="form.apiKey" type="password" show-password autocomplete="off" :disabled="testing || saving" placeholder="粘贴该服务商 / 区域的 API Key" /></el-form-item>
+          <el-form-item label="2. API 密钥"><el-input v-model="form.apiKey" type="password" show-password autocomplete="off" :disabled="testing || saving" placeholder="粘贴该服务商 / 区域的 API 密钥" /></el-form-item>
           <el-form-item label="3. 模型 ID（可搜索、选择或直接输入）"><el-autocomplete v-model="form.modelName" :fetch-suggestions="suggestModels" style="width:100%" :disabled="testing || saving" placeholder="输入厂商提供的精确模型 ID" /></el-form-item>
           <el-button :loading="discovering" :disabled="testing || saving || !['openai','anthropic'].includes(form.apiFormat)" @click="discover">获取最新模型</el-button>
           <p v-if="discoveryMessage" class="setup-help">{{ discoveryMessage }}</p>
-          <p class="setup-help">模型 ID 区分大小写；显示名称不是模型 ID。Embedding 必须选择支持文本向量的模型。</p>
+          <p class="setup-help">模型 ID 区分大小写；显示名称不是模型 ID。向量模型必须选择支持文本向量的模型。</p>
         </template>
-        <template v-else><el-form-item label="MinerU Token"><el-input v-model="form.apiKey" type="password" show-password /></el-form-item><el-form-item label="模型"><el-input v-model="form.modelName" placeholder="vlm / pipeline" /></el-form-item></template>
+        <template v-else><el-form-item label="MinerU 令牌"><el-input v-model="form.apiKey" type="password" show-password /></el-form-item><el-form-item label="模型"><el-input v-model="form.modelName" placeholder="vlm / pipeline" /></el-form-item></template>
         <el-form-item label="显示名称（选填）"><el-input v-model="form.displayName" placeholder="默认使用模型 ID" :disabled="testing || saving" /></el-form-item>
         <el-checkbox v-model="advanced">接口地址与高级设置</el-checkbox>
         <div v-if="advanced || form.provider === 'custom'" class="setup-advanced">
           <el-form-item v-if="form.modelType !== 'mineru'" label="协议"><el-select v-model="form.apiFormat" :disabled="testing || saving"><el-option v-for="p in protocols" :key="p" :label="protocolLabels[p]" :value="p" /></el-select></el-form-item>
-          <el-form-item label="API Base URL / 完整端点"><el-input v-model="form.baseUrl" :disabled="testing || saving" placeholder="https://your-provider.example/v1" /></el-form-item>
+          <el-form-item label="API 基础地址 / 完整端点"><el-input v-model="form.baseUrl" :disabled="testing || saving" placeholder="https://your-provider.example/v1" /></el-form-item>
           <p class="setup-help">OpenAI 的 /chat/completions、/embeddings 完整地址会自动规范化，避免重复拼接。仅在确认地址可信时填写密钥。</p>
           <el-form-item v-if="form.modelType === 'embedding'" label="请求向量维度（选填，留空使用模型默认并自动检测）"><el-input-number v-model="form.dimensions" :min="1" :max="16000" :disabled="testing || saving" /></el-form-item>
-          <template v-if="form.modelType === 'chat'"><el-form-item label="Temperature（选填，默认由模型决定）"><el-input-number v-model="form.temperature" :min="0" :max="2" :step="0.1" :disabled="testing || saving" /></el-form-item><el-form-item label="最大输出 Token（选填）"><el-input-number v-model="form.maxTokens" :min="1" :disabled="testing || saving" /></el-form-item></template>
+          <template v-if="form.modelType === 'chat'"><el-form-item label="温度参数（选填，默认由模型决定）"><el-input-number v-model="form.temperature" :min="0" :max="2" :step="0.1" :disabled="testing || saving" /></el-form-item><el-form-item label="最大输出 Token（选填）"><el-input-number v-model="form.maxTokens" :min="1" :disabled="testing || saving" /></el-form-item></template>
         </div>
         <p class="setup-help" v-if="!advanced && form.provider !== 'custom'">{{ protocolLabels[form.apiFormat] }} · {{ form.baseUrl }}</p>
         <el-checkbox v-model="activateAfterSave" :disabled="saving">保存后启用</el-checkbox>
@@ -252,9 +252,8 @@ onMounted(loadAll)
 <style scoped>
 .mm-page {
   display: flex;
-  gap: 10px;
-  height: calc(100vh - 80px);
-  padding: 10px;
+  min-height: 650px;
+  gap: 24px;
 }
 
 /* ── 左侧 ── */
@@ -262,7 +261,7 @@ onMounted(loadAll)
   width: 260px;
   flex-shrink: 0;
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 22px;
   overflow-y: auto;
   display: flex;
@@ -375,7 +374,7 @@ onMounted(loadAll)
   flex: 1;
   min-width: 0;
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 22px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   overflow-y: auto;
@@ -388,7 +387,7 @@ onMounted(loadAll)
   justify-content: space-between;
   gap: 16px;
   padding-bottom: 14px;
-  border-bottom: 1px solid var(--border-default);
+  border-bottom: 2px solid var(--border-default);
 }
 
 .mm-detail__title {
@@ -529,7 +528,8 @@ onMounted(loadAll)
 }
 
 .mm-detail__empty {
-  height: 100%;
+  min-height: 260px;
+  padding: 24px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -594,4 +594,19 @@ onMounted(loadAll)
 .provider-grid button { text-align: left; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; color: #1e293b; }
 .provider-grid small { display: block; margin-top: 8px; color: #64748b; overflow-wrap: anywhere; }
 :global(.model-setup-dialog .el-dialog__body) { max-height: 65vh; overflow-y: auto; padding-right: 8px; }
+
+@media (max-width: 900px) {
+  .mm-page { flex-direction: column; height: auto; min-height: 0; }
+  .mm-side { width: 100%; border-radius: 12px; padding-bottom: 14px; }
+  .mm-group { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 16px; }
+  .mm-group + .mm-group { border-top: 2px solid var(--border-default); }
+  .mm-group__label, .mm-sub-label { width: 100%; }
+  .mm-group .mm-item { width: auto; max-width: 100%; border: 1.5px solid var(--border-default); }
+  .mm-detail { border-radius: 12px; padding: 22px; overflow: visible; }
+  .mm-detail__head { flex-direction: column; }
+  .mm-detail__empty { min-height: 220px; }
+  .provider-grid { grid-template-columns: 1fr; }
+  .setup-details { grid-template-columns: 70px minmax(0, 1fr); gap: 12px; }
+  .mm-hint, .form-error, .test-msg { margin-left: 0; }
+}
 </style>

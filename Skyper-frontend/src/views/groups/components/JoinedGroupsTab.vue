@@ -28,7 +28,7 @@ function formatDate(dateStr?: string) {
     <EmptyState
       v-if="items.length === 0"
       title="你还没有加入任何小组"
-      description="接受其他用户的邀请，或点击上方「加入小组」输入组织 ID 提交加入申请。"
+      description="接受其他用户的邀请，或点击上方「加入小组」输入组织编号 提交加入申请。"
     />
 
     <div v-else class="tab-card-grid">

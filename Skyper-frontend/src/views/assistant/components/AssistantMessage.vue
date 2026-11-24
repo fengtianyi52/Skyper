@@ -117,10 +117,10 @@ function pad(n: number): string {
     <div class="amsg__body">
       <header class="amsg__head">
         <span class="amsg__role">
-          {{ message.role === 'USER' ? 'You' : message.role === 'ASSISTANT' ? 'Skyper' : 'Tool' }}
+          {{ message.role === 'USER' ? '你' : message.role === 'ASSISTANT' ? 'Skyper' : '工具' }}
         </span>
         <span v-if="message.toolMode" class="amsg__mode-tag" :class="`amsg__mode-tag--${message.toolMode.toLowerCase()}`">
-          {{ message.toolMode === 'CHAT' ? 'chat' : message.toolMode === 'ADMIN' ? 'admin' : 'kb_search' }}
+          {{ message.toolMode === 'CHAT' ? '自由对话' : message.toolMode === 'ADMIN' ? '管理助手' : '知识检索' }}
         </span>
         <span class="amsg__time">{{ formatTime(message.createdAt) }}</span>
       </header>
@@ -170,7 +170,7 @@ function pad(n: number): string {
           <span class="amsg__thinking-dot" />
           <span class="amsg__thinking-dot" />
           <span class="amsg__thinking-dot" />
-          <span class="amsg__thinking-label">Agent 正在思考…</span>
+          <span class="amsg__thinking-label">智能助手正在思考…</span>
         </div>
 
         <div v-else-if="!message.failed" class="amsg__md" :class="{ 'is-streaming': message.streaming }">
@@ -345,7 +345,7 @@ function pad(n: number): string {
 .amsg__tool {
   margin: 2px 0;
   background: var(--surface-subtle);
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -374,8 +374,8 @@ function pad(n: number): string {
 .amsg__tool-body {
   margin: 0;
   padding: 10px 14px;
-  background: #0f172a;
-  color: #cbd5e1;
+  background: #edf2fa;
+  color: #243b5a;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.74rem;
   line-height: 1.55;
@@ -445,7 +445,7 @@ function pad(n: number): string {
 .amsg__confirm-btn--cancel {
   color: var(--text-secondary);
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
 }
 
 .amsg__confirm-btn--cancel:hover {
@@ -460,7 +460,7 @@ function pad(n: number): string {
   gap: 6px;
   padding: 8px 14px;
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 100px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 }
@@ -624,13 +624,13 @@ function pad(n: number): string {
 .amsg__md :deep(pre) {
   margin: 12px 0;
   padding: 14px 16px;
-  background: #0f172a;
+  background: #edf2fa;
   border-radius: 10px;
   overflow-x: auto;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.82rem;
   line-height: 1.6;
-  color: #e2e8f0;
+  color: #243b5a;
   border: 1px solid #1e293b;
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
 }
@@ -685,7 +685,7 @@ function pad(n: number): string {
 .amsg__md :deep(th),
 .amsg__md :deep(td) {
   padding: 8px 12px;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   text-align: left;
 }
 

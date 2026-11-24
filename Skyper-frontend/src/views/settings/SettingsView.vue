@@ -42,6 +42,13 @@ async function handleChangePassword() {
       <p>管理您的账号安全与偏好</p>
     </div>
 
+    <section class="account-summary" aria-label="个人资料">
+      <div><span>显示名称</span><b>{{ authStore.currentUser?.displayName || '未设置' }}</b></div>
+      <div><span>用户编号</span><b>{{ authStore.currentUser?.userId }}</b></div>
+      <div><span>用户代码</span><b>{{ authStore.currentUser?.userCode || '未设置' }}</b></div>
+      <div><span>账号角色</span><b>{{ authStore.isAdmin ? '管理员' : '成员' }}</b></div>
+    </section>
+
     <!-- 强制修改密码提示 -->
     <div v-if="mustChange" class="must-change-banner">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M12 8V12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="none"/></svg>
@@ -70,6 +77,10 @@ async function handleChangePassword() {
 </template>
 
 <style scoped>
+.account-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 24px; padding: 24px; margin-bottom: 24px; background: #fff; border: 1.5px solid var(--skyper-line); border-radius: 12px; }
+.account-summary span, .account-summary b { display: block; overflow-wrap: anywhere; }
+.account-summary span { color: var(--text-secondary); font-size: 12px; margin-bottom: 7px; }
+.account-summary b { font-size: 15px; }
 .page-header { margin-bottom: 28px; }
 .page-header h1 { font-size: 24px; font-weight: 800; color: var(--text-primary); margin-bottom: 4px; }
 .page-header p { font-size: 14px; color: var(--text-secondary); margin: 0; }
@@ -78,7 +89,7 @@ async function handleChangePassword() {
 .must-change-banner svg { flex-shrink: 0; color: #f59e0b; }
 
 .settings-section { max-width: 620px; }
-.section-trigger { display: flex; align-items: center; gap: 14px; width: 100%; padding: 18px 20px; background: var(--surface-white); border: 1px solid var(--border-default); border-radius: var(--radius-md); cursor: pointer; font-family: inherit; text-align: left; transition: all .2s ease; box-shadow: 0 1px 3px rgba(0,0,0,.03); }
+.section-trigger { display: flex; align-items: center; gap: 14px; width: 100%; padding: 18px 20px; background: var(--surface-white); border: 1.5px solid var(--border-default); border-radius: var(--radius-md); cursor: pointer; font-family: inherit; text-align: left; transition: all .2s ease; box-shadow: 0 1px 3px rgba(0,0,0,.03); }
 .section-trigger:hover { border-color: var(--brand-primary); box-shadow: 0 4px 12px rgba(74,144,217,.08); }
 .section-trigger.expanded { border-radius: var(--radius-md) var(--radius-md) 0 0; border-bottom-color: transparent; }
 .section-trigger__icon { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 10px; background: rgba(74,144,217,.08); color: var(--brand-primary); flex-shrink: 0; }
@@ -87,14 +98,14 @@ async function handleChangePassword() {
 .section-trigger__desc { font-size: .78rem; color: var(--text-muted); }
 .section-trigger__chevron { color: var(--text-muted); flex-shrink: 0; transition: transform .25s ease; }
 .section-trigger.expanded .section-trigger__chevron { transform: rotate(180deg); }
-.section-body { background: var(--surface-white); border: 1px solid var(--border-default); border-top: none; border-radius: 0 0 var(--radius-md) var(--radius-md); padding: 0 20px 24px; animation: section-in .25s ease; }
+.section-body { background: var(--surface-white); border: 1.5px solid var(--border-default); border-top: none; border-radius: 0 0 var(--radius-md) var(--radius-md); padding: 0 20px 24px; animation: section-in .25s ease; }
 @keyframes section-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
 
 .pw-form { display: flex; flex-direction: column; gap: 16px; }
 .input-group { display: flex; flex-direction: column; gap: 5px; }
 .input-group label { font-size: 13px; font-weight: 600; color: var(--text-primary); }
 .input-group input { padding: 10px 13px; border: 1.5px solid var(--border-default); border-radius: var(--radius-sm); font-size: 14px; font-family: inherit; color: var(--text-primary); background: var(--surface-white); transition: border-color .2s ease, box-shadow .2s ease; outline: none; }
-.input-group input::placeholder { color: #94a3b8; }
+.input-group input::placeholder { color: #62738a; }
 .input-group input:focus { border-color: var(--brand-primary); box-shadow: 0 0 0 3px rgba(74,144,217,.1); }
 .form-error { font-size: 13px; color: var(--el-color-danger); margin: 0; }
 .form-success { font-size: 13px; color: var(--el-color-success); margin: 0; }

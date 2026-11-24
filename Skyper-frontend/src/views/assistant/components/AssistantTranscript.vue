@@ -81,7 +81,7 @@ watch(
     <!-- Sticky header -->
     <header class="atx__head">
       <div class="atx__head-left">
-        <span class="atx__eyebrow">Active Thread</span>
+        <span class="atx__eyebrow">当前会话</span>
         <h2 class="atx__title" :title="sessionTitle">
           <span class="atx__title-pulse" />
           {{ sessionTitle || '未命名会话' }}
@@ -329,7 +329,7 @@ watch(
   align-items: center;
   gap: 8px;
   padding: 7px 18px;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 100px;
   background: #fff;
   font-family: inherit;

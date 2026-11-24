@@ -35,7 +35,7 @@ function iconClass(fileName: string): string {
 <template>
   <div class="citation-rail">
     <header class="citation-rail__head">
-      <span class="citation-rail__eyebrow">Evidence Chain</span>
+      <span class="citation-rail__eyebrow">引用证据</span>
       <span class="citation-rail__title">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
@@ -153,7 +153,7 @@ function iconClass(fileName: string): string {
   width: 260px;
   padding: 12px 14px 12px;
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 12px;
   text-align: left;
   font-family: inherit;

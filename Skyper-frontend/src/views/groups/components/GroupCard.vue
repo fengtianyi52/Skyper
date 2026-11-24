@@ -33,7 +33,7 @@ const emit = defineEmits<{
     
     <div class="glass-footer" v-if="code || time || $slots.actions">
       <div class="glass-footer-info">
-        <span v-if="code" class="glass-code">组织 ID：{{ code }}</span>
+        <span v-if="code" class="glass-code">组织编号：{{ code }}</span>
         <span v-if="time" class="glass-time">{{ time }}</span>
       </div>
       <div class="glass-actions" v-if="$slots.actions">
@@ -49,7 +49,7 @@ const emit = defineEmits<{
   overflow: hidden;
   cursor: pointer;
   background: rgba(255, 255, 255, 0.85); /* Light theme adaptation */
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 20px;
   padding: 36px 28px;
   backdrop-filter: blur(20px);
@@ -189,7 +189,7 @@ const emit = defineEmits<{
   align-items: flex-end;
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid var(--border-default);
+  border-top: 2px solid var(--border-default);
 }
 
 .glass-footer-info {

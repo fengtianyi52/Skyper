@@ -48,7 +48,7 @@ onMounted(check)
               postgresql: { label: 'PostgreSQL', comp: health.postgresql },
               elasticsearch: { label: 'Elasticsearch', comp: health.elasticsearch },
               minio: { label: 'MinIO', comp: health.minio },
-              embedding: { label: 'Embedding API', comp: health.embedding },
+              embedding: { label: '文本向量 API', comp: health.embedding },
             }"
             :key="key"
             class="status-card"
@@ -80,7 +80,7 @@ onMounted(check)
                 class="queue-stat__value"
                 :class="health.ingestion.workerRunning ? 'queue-stat__value--ok' : 'queue-stat__value--bad'"
               >{{ health.ingestion.workerRunning ? '运行中' : '已停止' }}</span>
-              <span class="queue-stat__label">Worker</span>
+              <span class="queue-stat__label">后台处理进程</span>
             </div>
           </div>
 
@@ -91,8 +91,8 @@ onMounted(check)
             size="small"
             style="width: 100%"
           >
-            <el-table-column prop="jobId" label="任务 ID" width="90" />
-            <el-table-column prop="documentId" label="文档 ID" width="90" />
+            <el-table-column prop="jobId" label="任务编号" width="90" />
+            <el-table-column prop="documentId" label="文档编号" width="90" />
             <el-table-column prop="error" label="错误信息" min-width="300" show-overflow-tooltip />
             <el-table-column prop="createdAt" label="时间" width="160" />
           </el-table>
@@ -147,7 +147,7 @@ onMounted(check)
 
 .status-card {
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 12px;
   padding: 14px 16px;
 }
@@ -205,7 +205,7 @@ onMounted(check)
 
 .section-card {
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 12px;
   padding: 16px 18px;
 }

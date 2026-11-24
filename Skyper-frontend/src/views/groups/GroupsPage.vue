@@ -190,7 +190,7 @@ async function handleSubmitJoinRequest(groupCode: string) {
     await submitJoinRequest(groupCode)
     showJoinModal.value = false
     myJoinRequests.value = await fetchMyJoinRequests()
-    feedback.value = `已提交加入申请（组织 ID: ${groupCode}），等待管理员审批。`
+    feedback.value = `已提交加入申请（组织编号: ${groupCode}），等待管理员审批。`
   } catch (err) {
     error.value = extractApiError(err, '提交加入申请失败')
   } finally {
@@ -352,7 +352,7 @@ async function handleLeaveGroup(groupId: number) {
       <template #actions>
         <div class="groups-page__identity">
           <span>{{ currentUserLabel }}</span>
-          <small>ID: {{ currentUserIdLabel }}</small>
+          <small>编号： {{ currentUserIdLabel }}</small>
         </div>
       </template>
     </PageHeaderHero>
@@ -601,7 +601,7 @@ async function handleLeaveGroup(groupId: number) {
   border-radius: var(--radius-sm);
   font-size: 0.9rem;
   font-weight: 600;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   background: var(--surface-white);
   color: var(--text-secondary);
   cursor: pointer;
@@ -675,5 +675,19 @@ async function handleLeaveGroup(groupId: number) {
 
 .groups-tab-content {
   min-height: 200px;
+}
+
+@media (max-width: 1100px) {
+  .groups-layout-header { flex-direction: column; align-items: stretch; gap: 16px; }
+  .groups-toolbar { order: -1; margin: 0; flex-wrap: wrap; }
+  .groups-tabs { flex-wrap: wrap; }
+  .tab-btn, .modern-action-btn { white-space: nowrap; }
+}
+
+@media (max-width: 600px) {
+  .groups-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; }
+  .tab-btn { justify-content: center; font-size: 13px; padding: 12px 6px; gap: 6px; }
+  .groups-toolbar > button { flex: 1; justify-content: center; font-size: 13px; }
+  .groups-page__identity { text-align: left; }
 }
 </style>

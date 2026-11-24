@@ -37,7 +37,7 @@ function tagClass(fileName: string): string {
 <template>
   <div class="citebar">
     <header class="citebar__head">
-      <span class="citebar__eyebrow">Evidence Chain</span>
+      <span class="citebar__eyebrow">引用证据</span>
       <span class="citebar__title">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
@@ -151,7 +151,7 @@ function tagClass(fileName: string): string {
   width: 260px;
   padding: 12px 14px 12px;
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 12px;
   text-align: left;
   font-family: inherit;

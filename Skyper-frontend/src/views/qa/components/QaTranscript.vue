@@ -52,7 +52,7 @@ watch(
   <div class="qa-transcript">
     <header class="qa-transcript__head">
       <div class="qa-transcript__head-left">
-        <span class="qa-transcript__eyebrow">Active Thread</span>
+        <span class="qa-transcript__eyebrow">当前会话</span>
         <h2 class="qa-transcript__title">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <ellipse cx="12" cy="5" rx="9" ry="3" />

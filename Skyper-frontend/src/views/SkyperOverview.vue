@@ -1,24 +1,119 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import SkyperIcon from '@/components/SkyperIcon.vue'
 
-const router = useRouter()
 const auth = useAuthStore()
-const firstName = computed(() => (auth.currentUser?.displayName ?? '伙伴').split(' ')[0])
+const displayName = computed(() => auth.currentUser?.displayName || '伙伴')
 const actions = [
-  { label: '开始一段对话', detail: '让 Agent 帮你整理、检索或执行', path: '/app/assistant', accent: 'primary', icon: '✦' },
-  { label: '查看知识库', detail: '浏览群组中的文档与证据', path: '/app/documents', accent: 'quiet', icon: '▤' },
-  { label: '进入问答', detail: '用带引用的检索回答验证想法', path: '/app/qa', accent: 'quiet', icon: '⌕' },
+  {
+    label: '智能助手',
+    detail: '整理思路，开启新的对话',
+    path: '/app/assistant',
+    icon: 'assistant',
+  },
+  { label: '知识库问答', detail: '提出问题，查找有据可依的答案', path: '/app/qa', icon: 'qa' },
+  {
+    label: '文档空间',
+    detail: '管理资料，积累团队知识',
+    path: '/app/documents',
+    icon: 'documents',
+  },
+  { label: '协作小组', detail: '连接成员，共享知识与进展', path: '/app/groups', icon: 'groups' },
 ]
 </script>
 
 <template>
   <div class="overview-page">
-    <section class="overview-hero"><div><span class="eyebrow">GOOD TO SEE YOU</span><h1>你好，{{ firstName }}。<br><em>今天想推进什么？</em></h1><p>Skyper 会把上下文、证据和工具调用放在同一个可追踪的对话里。</p></div><div class="overview-hero__stamp"><span class="stamp-dot" /><span>RUN SPACE</span><strong>READY</strong><small>your private agent surface</small></div></section>
-    <section class="overview-actions"><button v-for="action in actions" :key="action.label" class="overview-action" :class="`overview-action--${action.accent}`" @click="router.push(action.path)"><span class="overview-action__icon">{{ action.icon }}</span><span><b>{{ action.label }}</b><small>{{ action.detail }}</small></span><span class="overview-action__arrow">→</span></button></section>
-    <section class="overview-grid"><article class="overview-card overview-card--trace"><div class="card-head"><span class="eyebrow">AGENT TRACE</span><span class="card-link" @click="router.push('/app/assistant')">打开 Agent <b>↗</b></span></div><div class="trace-title">一条清晰的<br><strong>思考路径。</strong></div><div class="trace-steps"><div><i class="trace-node trace-node--done" /><span>context loaded</span><b>01</b></div><div><i class="trace-node trace-node--active" /><span>tool policy ready</span><b>02</b></div><div><i class="trace-node" /><span>waiting for you</span><b>03</b></div></div></article><article class="overview-card overview-card--quality"><div class="card-head"><span class="eyebrow">RELIABILITY LAYER</span><span class="quality-score">A-</span></div><h3>每次改动，<br><em>都有回归。</em></h3><p>离线评测器会检查工具选择、参数、权限和确认链路，避免“看起来能跑”成为唯一标准。</p><div class="quality-bar"><span /><span /><span /><span /><span /></div><small>5 个核心场景 · Python / pytest</small></article></section>
-    <section class="overview-note"><span class="note-mark">i</span><p>提示：你可以在左下角主题面板上传背景图。图片留在本机浏览器，换一张图就换一个工作氛围。</p></section>
+    <section class="overview-hero">
+      <div>
+        <span class="eyebrow">工作台总览</span>
+        <h1>你好，{{ displayName }}。<br /><em>今天，从一个好问题开始。</em></h1>
+        <p>你的资料、思路与协作，都在这里有序展开。</p>
+        <RouterLink to="/app/assistant" class="hero-primary"
+          >开始对话 <SkyperIcon name="arrow" :size="20"
+        /></RouterLink>
+      </div>
+      <div class="overview-illustration" aria-hidden="true">
+        <div class="overview-illustration__orbit" />
+        <span class="illustration-tile illustration-tile--document"
+          ><SkyperIcon name="documents" :size="30" />团队知识</span
+        ><span class="illustration-center"><SkyperIcon name="assistant" :size="48" /></span
+        ><span class="illustration-tile illustration-tile--answer"
+          ><SkyperIcon name="shield" :size="28" />可信答案</span
+        ><span class="illustration-caption">连接知识，推进每一次协作</span>
+      </div>
+    </section>
+    <section class="overview-section" aria-labelledby="quick-title">
+      <div class="section-heading">
+        <h2 id="quick-title">常用工作入口</h2>
+        <span>从你要做的事开始</span>
+      </div>
+      <div class="overview-actions">
+        <RouterLink
+          v-for="action in actions"
+          :key="action.path"
+          :to="action.path"
+          class="overview-action"
+          ><span class="feature-icon"><SkyperIcon :name="action.icon" :size="27" /></span>
+          <h3>{{ action.label }}</h3>
+          <p>{{ action.detail }}</p>
+          <span class="action-link">立即打开 <SkyperIcon name="arrow" :size="18" /></span
+        ></RouterLink>
+      </div>
+    </section>
+    <section class="overview-grid">
+      <article class="overview-card">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">快速上手</span>
+            <h2>让知识开始发挥作用</h2>
+          </div>
+          <SkyperIcon name="documents" :size="28" />
+        </div>
+        <div class="onboarding-steps">
+          <RouterLink to="/app/groups"
+            ><span>01</span>
+            <div>
+              <b>加入或创建协作小组</b>
+              <p>确定共享成员与知识范围。</p>
+            </div>
+            <SkyperIcon name="arrow" :size="20" /></RouterLink
+          ><RouterLink to="/app/documents"
+            ><span>02</span>
+            <div>
+              <b>上传并整理文档</b>
+              <p>将需要检索的资料加入知识库。</p>
+            </div>
+            <SkyperIcon name="arrow" :size="20" /></RouterLink
+          ><RouterLink to="/app/qa"
+            ><span>03</span>
+            <div>
+              <b>提问，并查看原文依据</b>
+              <p>从答案进入引用片段，核实信息。</p>
+            </div>
+            <SkyperIcon name="arrow" :size="20"
+          /></RouterLink>
+        </div>
+      </article>
+      <article class="overview-card overview-card--guide">
+        <span class="eyebrow">使用建议</span>
+        <h2>问题越具体，<br />思路越清晰。</h2>
+        <p>
+          告诉助手你的目标、已有资料和预期结果。需要查询文档时，先选择对应的知识库，再检查回答中的引用。
+        </p>
+        <div class="example-prompt">
+          <span>试着这样问</span>
+          <p>“请根据项目文档，整理实施步骤和注意事项，并列出对应的原文依据。”</p>
+        </div>
+        <RouterLink to="/app/assistant" class="action-link"
+          >前往智能助手 <SkyperIcon name="arrow" :size="18"
+        /></RouterLink>
+      </article>
+    </section>
+    <div class="overview-note">
+      <SkyperIcon name="settings" :size="19" />
+      <p>在右上角「外观设置」中更换主题色或背景图片。背景图片仅保存在当前浏览器。</p>
+    </div>
   </div>
 </template>
-

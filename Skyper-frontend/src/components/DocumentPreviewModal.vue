@@ -339,7 +339,7 @@ function fileTypeLabel(ext: string | null): string {
 
 /* ── 代码块 ── */
 .preview-markdown-wrapper pre {
-  background: #1e1e2e;
+  background: #edf2fa;
   border: 1px solid var(--border-default, #d1d5db);
   border-radius: var(--radius-sm, 8px);
   padding: 16px;
@@ -349,7 +349,7 @@ function fileTypeLabel(ext: string | null): string {
 
 .preview-markdown-wrapper pre code {
   background: none;
-  color: #cdd6f4;
+  color: #243b5a;
   padding: 0;
   font-size: 0.85em;
   line-height: 1.6;
@@ -468,7 +468,7 @@ function fileTypeLabel(ext: string | null): string {
   font-family: 'JetBrains Mono', 'Cascadia Code', monospace;
   font-size: 0.82em;
   background: var(--surface-muted);
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-bottom-width: 2px;
   border-radius: 4px;
   padding: 1px 6px;

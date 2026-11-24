@@ -1,17 +1,19 @@
 # Skyper：启动、登录与电脑重启后的操作
 
+> 2026-11-11 本机环境已安装到 `D:\develop`，数据服务初始化和登录、存储验证已通过。日常双击 `start.bat` 即可。完整安装条目、目录和验证结果见 [本机环境安装清单](LOCAL_ENVIRONMENT.md)。
+
 ## 现在如何打开页面
 
-在项目文件夹双击 **start.bat**。本机位置是 D:/Desktop/codex_project/skyper/start.bat。
+完成上述首次验证后，在项目文件夹双击 **start.bat**。本机位置是 D:/default/Desktop/origin/codex_project/skyper/start.bat。
 
-它依次检查 Python 和 Node.js，启动 Docker Desktop（如果尚未运行且位于默认安装位置），等待 PostgreSQL、MinIO、Elasticsearch 全部健康，启动后端和前端，检查实际 HTTP 响应，然后打开 http://127.0.0.1:5173/。
+它依次检查 Python 和 Node.js，启动 Docker Desktop（支持默认安装位置或 `.runtime/environment.ps1` 指定的 D 盘位置），等待 PostgreSQL、MinIO、Elasticsearch 全部健康，启动后端和前端，检查实际 HTTP 响应，然后打开 http://127.0.0.1:5173/。
 
-本地示例管理员：用户名 admin，密码 Admin@123456。如果你已自行改密，应使用新密码；启动脚本不会重置已有用户密码。
+本地开发管理员通常为 `admin`，初始密码以本机 `Skyper-python/.env` 的 `DEV_ADMIN_PASSWORD` 为准。如果你已自行改密，应使用新密码；启动脚本不会重置已有用户密码。
 
 也可以在 PowerShell 中执行：
 
 ~~~powershell
-cd D:/Desktop/codex_project/skyper
+cd D:/default/Desktop/origin/codex_project/skyper
 .\start.bat
 ~~~
 
@@ -34,7 +36,7 @@ Docker Desktop 只负责本项目的三个数据服务；FastAPI 后端和 Vite 
 不用时双击 **stop.bat**。脚本仅停止自己记录的 Skyper 前后端进程，再执行 docker compose stop；不会删除容器、数据库卷或已上传文件，也不会退出 Docker Desktop 的其他项目。
 
 ~~~powershell
-cd D:/Desktop/codex_project/skyper
+cd D:/default/Desktop/origin/codex_project/skyper
 .\stop.bat
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\skyper.ps1 -Action Status
 docker compose ps -a
@@ -110,15 +112,15 @@ cd ..
 
 ~~~powershell
 # 终端一：项目根目录
-cd D:/Desktop/codex_project/skyper
+cd D:/default/Desktop/origin/codex_project/skyper
 docker compose up -d --wait --wait-timeout 180
 
 # 终端二：后端；若使用 .venv，把 python 替换为 ./.venv/Scripts/python.exe
-cd D:/Desktop/codex_project/skyper/Skyper-python
+cd D:/default/Desktop/origin/codex_project/skyper/Skyper-python
 python -m uvicorn app.main:app --host 127.0.0.1 --port 10001 --reload
 
 # 终端三：前端
-cd D:/Desktop/codex_project/skyper/Skyper-frontend
+cd D:/default/Desktop/origin/codex_project/skyper/Skyper-frontend
 npm run dev -- --host 127.0.0.1 --port 5173 --strictPort
 ~~~
 

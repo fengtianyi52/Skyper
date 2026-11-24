@@ -120,7 +120,7 @@ function formatResult(result: string | undefined): string {
 <style scoped>
 .tcc {
   margin: 4px 0;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 9px;
   overflow: hidden;
   background: #fff;
@@ -254,7 +254,7 @@ function formatResult(result: string | undefined): string {
   margin: 0;
   padding: 8px 10px;
   background: #f8fafc;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 6px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.72rem;

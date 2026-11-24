@@ -165,7 +165,7 @@ onMounted(load)
 
 .table-card {
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 12px;
   padding: 14px;
 }

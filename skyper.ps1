@@ -8,6 +8,8 @@ param(
 $ErrorActionPreference = 'Stop'
 $projectRoot = $PSScriptRoot
 $runtimeDir = Join-Path $projectRoot '.runtime'
+$localEnvironment = Join-Path $runtimeDir 'environment.ps1'
+if (Test-Path -LiteralPath $localEnvironment) { . $localEnvironment }
 $stateFile = Join-Path $runtimeDir 'services.json'
 $state = @{}
 if (Test-Path -LiteralPath $stateFile) {
@@ -20,12 +22,27 @@ function Save-State {
 }
 
 function Test-Docker {
-    # Windows PowerShell 5.1 treats redirected native stderr as error records.
-    # An unavailable engine is expected here; return false so startup can proceed.
-    if (-not (Get-Command docker -ErrorAction SilentlyContinue)) { return $false }
-    $ErrorActionPreference = 'Continue'
-    & docker info --format '{{.ServerVersion}}' 1>$null 2>$null
-    return ($LASTEXITCODE -eq 0)
+    $command = Get-Command docker.exe -ErrorAction SilentlyContinue
+    if (-not $command) { return $false }
+    # A partially started Desktop engine can leave docker info waiting for minutes.
+    $process = New-Object System.Diagnostics.Process
+    $process.StartInfo.FileName = $command.Source
+    $process.StartInfo.Arguments = 'info --format "{{.ServerVersion}}"'
+    $process.StartInfo.UseShellExecute = $false
+    $process.StartInfo.CreateNoWindow = $true
+    $process.StartInfo.RedirectStandardOutput = $true
+    $process.StartInfo.RedirectStandardError = $true
+    try {
+        $process.Start() | Out-Null
+        $stdout = $process.StandardOutput.ReadToEndAsync()
+        $stderr = $process.StandardError.ReadToEndAsync()
+        if (-not $process.WaitForExit(10000)) {
+            $process.Kill()
+            return $false
+        }
+        return ($process.ExitCode -eq 0)
+    } catch { return $false }
+    finally { $process.Dispose() }
 }
 
 function Get-Listener([int]$Port) {
@@ -108,7 +125,10 @@ try {
                 if (-not ($sameStart -and $process.Path -eq $record.executable)) {
                     throw "PID for $name belongs to another process; nothing was stopped."
                 }
-                Stop-Process -Id $process.Id
+                # Windows venv python.exe launches the actual interpreter as a
+                # child. Stop this verified process tree so its port is released.
+                & taskkill.exe /PID $process.Id /T /F | Out-Null
+                if ($LASTEXITCODE -ne 0) { throw "Could not stop $name process tree." }
                 $process.WaitForExit(10000) | Out-Null
                 Write-Host "[OK] $name stopped."
             }
@@ -136,7 +156,8 @@ try {
     Write-Host "[1/3] Preparing Docker services. Python: $python"
     Get-Command docker -ErrorAction Stop | Out-Null
     if (-not (Test-Docker)) {
-        $desktop = Join-Path $env:ProgramFiles 'Docker\Docker\Docker Desktop.exe'
+        $desktop = $env:SKYPER_DOCKER_DESKTOP
+        if (-not $desktop) { $desktop = Join-Path $env:ProgramFiles 'Docker\Docker\Docker Desktop.exe' }
         if (-not (Test-Path -LiteralPath $desktop)) {
             throw 'Open Docker Desktop, wait for the engine to start, then run start.bat again.'
         }

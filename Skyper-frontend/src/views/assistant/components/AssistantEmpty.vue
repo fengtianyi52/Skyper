@@ -52,7 +52,7 @@ const adminStarters = [
       </div>
 
       <p class="aempty__eyebrow">
-        {{ mode === 'CHAT' ? 'Conversational Agent · Skyper' : mode === 'ADMIN' ? 'Admin Console Agent · Skyper' : 'Knowledge-Base Retrieval · Skyper' }}
+        {{ mode === 'CHAT' ? '智能对话 · Skyper' : mode === 'ADMIN' ? '管理助手 · Skyper' : '知识库检索 · Skyper' }}
       </p>
 
       <h1 class="aempty__title">
@@ -70,7 +70,7 @@ const adminStarters = [
           查看群组与文档、平台统计、搜索知识库内容；停用群组、删除文档等写操作会先与你确认。
         </template>
         <template v-else>
-          在指定知识库范围内提问，Agent 会先检索相关文档，再给出带引用溯源的答案。
+          在指定知识库范围内提问，智能助手会先检索相关文档，再给出带引用溯源的答案。
           <span v-if="!hasKb" class="aempty__subtitle-warn">请先在下方输入框选择一个知识库。</span>
         </template>
       </p>
@@ -352,7 +352,7 @@ const adminStarters = [
   gap: 12px;
   padding: 14px 16px;
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 14px;
   text-align: left;
   font-family: inherit;

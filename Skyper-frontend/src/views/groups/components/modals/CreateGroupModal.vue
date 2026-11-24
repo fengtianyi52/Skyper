@@ -150,7 +150,7 @@ function handleSubmit() {
 .form-field__textarea {
   width: 100%;
   padding: 9px 12px;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: var(--radius-sm);
   font-size: 0.9rem;
   font-family: inherit;

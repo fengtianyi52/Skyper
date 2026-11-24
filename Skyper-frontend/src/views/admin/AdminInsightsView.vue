@@ -233,12 +233,12 @@ onMounted(load)
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
   margin-bottom: 18px;
-  max-width: 720px;
+  width: 100%;
 }
 
 .kpi-card {
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 12px;
   padding: 16px 18px;
 }
@@ -266,7 +266,7 @@ onMounted(load)
 
 .chart-card {
   background: #fff;
-  border: 1px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   border-radius: 12px;
   padding: 16px 18px;
 }

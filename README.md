@@ -2,7 +2,7 @@
 
 Skyper 是一个面向个人和小团队的 Agent 工作台。它集成文档知识库、混合检索、群组协作和 LangGraph Agent，支持可观察的工具调用、权限控制、高风险操作确认和离线回归评测。
 
-项目仓库：[Fty-RAG-Agent](https://github.com/fengtianyi52/Fty-RAG-Agent)
+项目仓库：[Skyper](https://github.com/fengtianyi52/Skyper)
 
 ## 中文说明
 
@@ -108,8 +108,8 @@ Skyper-frontend 为前端应用目录，Skyper-python 为 Python 后端目录。
 #### 1. 获取项目并创建配置
 
 ~~~powershell
-git clone https://github.com/fengtianyi52/Fty-RAG-Agent.git
-cd Fty-RAG-Agent
+git clone https://github.com/fengtianyi52/Skyper.git
+cd Skyper
 Copy-Item Skyper-python/.env.example Skyper-python/.env
 ~~~
 
@@ -247,7 +247,7 @@ The project is organized into three layers:
 2. **Action**: orchestrate conversations, knowledge-base Q&A and tool use with LangGraph and stream events over SSE.
 3. **Reliability**: use deterministic Python checks for tool selection, arguments, role permissions and destructive-action confirmation.
 
-Repository: [Fty-RAG-Agent](https://github.com/fengtianyi52/Fty-RAG-Agent)
+Repository: [Skyper](https://github.com/fengtianyi52/Skyper)
 
 ### Features
 
@@ -312,8 +312,8 @@ Skyper-frontend contains the web application; Skyper-python contains the Python 
 Clone the repository and create the local environment file:
 
 ~~~powershell
-git clone https://github.com/fengtianyi52/Fty-RAG-Agent.git
-cd Fty-RAG-Agent
+git clone https://github.com/fengtianyi52/Skyper.git
+cd Skyper
 Copy-Item Skyper-python/.env.example Skyper-python/.env
 ~~~
 
